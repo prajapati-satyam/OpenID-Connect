@@ -7,9 +7,8 @@ import { readFileSync } from "fs";
 import jose from "node-jose"
 import { usersTable } from "./db/schema";
 import { eq } from "drizzle-orm";
-import crypto from 'crypto'
-import jwt from "jsonwebtoken"
-import { FILE } from "dns";
+import crypto from 'crypto';
+import jwt from "jsonwebtoken";
 
 const db = drizzle(process.env.DATABASE_URL!);
 
@@ -131,7 +130,7 @@ app.post('/o/authenthicate/signin', async (req:Request,res:Response)=> {
 
 app.get('/o/userinfo', async (req:Request,res:Response) => {
     const auth_header = req.headers.authorization
-    if (!auth_header || !auth_header.startsWith("Bearer")) {
+    if (!auth_header || !auth_header.startsWith("Bearer ")) {
         return res.status(400).json({
             message: "Auth Header is required"
         })
@@ -146,17 +145,18 @@ app.get('/o/userinfo', async (req:Request,res:Response) => {
         const isValid = jwt.verify(token, PUBLIC_KEY, {algorithms: ["RS256"]}) as JWTCliams;
         if (isValid) {
            const [finduser] = await db.select().from(usersTable).where(eq(usersTable.id, isValid.sub)).limit(1);
-           if (!finduser || !finduser.email || !finduser.first_name || finduser.id) {
+           if (!finduser || !finduser.email || !finduser.first_name || !finduser.id) {
             console.log("error in user finding in userinfo", finduser)
             return res.status(200).json({message: "Something Went wrong"})
            }
-           const obj = {
+        const obj = {
         sub: finduser.id,
         email: finduser.email,
         given_name: finduser.first_name,
         family_name: finduser.last_name,
         name: finduser.first_name+finduser.last_name
            }
+           return res.status(200).json(obj)
         }
     } catch (err) {
         console.log("invalid token")

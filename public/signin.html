@@ -3,9 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Manrope", "sans-serif"]
+                    },
+                    boxShadow: {
+                        soft: "0 24px 70px -28px rgba(0, 0, 0, 0.45)"
+                    }
+                }
+            }
+        };
+    </script>
 </head>
-<body>
-    <h2>Hello world from signIN</h2>
+<body class="min-h-screen bg-slate-950 text-slate-900 antialiased">
+    <div class="relative min-h-screen overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1800&q=80')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/70 to-cyan-950/70"></div>
+        <div class="absolute -top-32 -right-20 h-96 w-96 rounded-full bg-cyan-400/20 blur-3xl"></div>
+        <div class="absolute -bottom-28 -left-20 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl"></div>
+
+        <main class="relative z-10 flex min-h-screen items-center justify-center px-4 py-10">
+            <section class="w-full max-w-md rounded-3xl border border-white/20 bg-white/90 p-7 shadow-soft backdrop-blur-xl sm:p-10">
+                <div class="mb-8 text-center">
+                    <p class="mb-2 inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600">Welcome Back</p>
+                    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Sign in to continue</h1>
+                    <p class="mt-2 text-sm text-slate-600">Access your account dashboard securely.</p>
+                </div>
+
+                <form action="/o/authenthicate/signin" method="POST" class="space-y-5">
+                    <div>
+                        <label for="email" class="mb-2 block text-sm font-semibold text-slate-700">Email</label>
+                        <div class="relative">
+                            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5v-9Zm1.7-.5L12 11.4 18.3 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <input type="email" id="email" name="email" required class="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-900 shadow-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100" placeholder="you@example.com">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="password" class="mb-2 block text-sm font-semibold text-slate-700">Password</label>
+                        <div class="relative">
+                            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M7.5 10.75V8.5a4.5 4.5 0 1 1 9 0v2.25" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                                    <rect x="5" y="10.75" width="14" height="8.75" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                                </svg>
+                            </span>
+                            <input type="password" id="password" name="password" required class="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-900 shadow-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100" placeholder="Enter your password">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <a href="/forgot-password.html" class="text-sm font-semibold text-cyan-500 hover:text-cyan-700">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="group inline-flex h-12 w-full items-center justify-center rounded-xl bg-slate-900 text-sm font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-300">
+                        Sign In
+                        <svg class="ml-2 h-4 w-4 transition group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                            <path d="M4 10h12M11.5 5.5 16 10l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <p class="mt-6 text-center text-sm text-slate-600">Don't have an account? <a href="/signup.html" class="font-semibold text-slate-900 underline decoration-cyan-500/70 underline-offset-4 transition hover:decoration-cyan-700">Sign up here</a></p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            if (!email || !password) {
+                event.preventDefault();
+                alert('Please enter both email and password.');
+            }
+        });
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const response = await fetch('/o/authenthicate/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await response.json();
+            if (data.token) {
+                console.log('Token:', data.token);
+                    const userinfo = await fetch('/o/userinfo', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${data.token}`
+                        }
+                    });
+                    const userinfoData = await userinfo.json();
+                    alert('user data:, see console for details');
+                    console.log('User Info:', userinfoData);
+            } else {
+                alert('Incorrect email or password.');
+            }
+        });
+    </script>
 </body>
 </html>
